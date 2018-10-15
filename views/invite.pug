@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  #register-box
+    h1 Invite #[span#usrSpan #{username}] to Group
+    
+    form(method='POST', action='/groups/invite/' + username)
+      .form-group
+        select#grSelect(name='groupsSelect')
+          each gr in groups
+            option.selOption(value=gr.name)= gr.name
+      br
+      input.butn.butn-primary(type='submit', value='Submit')

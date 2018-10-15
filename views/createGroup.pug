@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  #register-box
+    h1 Group Creation
+    form(method='POST', action='/groups/create')
+      .form-group
+        input.form-control(name='groupname', type='text', placeholder= 'Group name')
+      br
+      input.butn.butn-primary(type='submit', value='Submit')

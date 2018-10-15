@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  if inUse
+      #inUse
+        span#useText= inUse
+    
+  #register-box
+    h1 Registration
+    form(method='POST', action='/users/register')
+      .form-group
+        //- label Username:
+        input.form-control(name='username', type='text', placeholder= 'Username')
+      .form-group
+        //- label Email:
+        input.form-control(name='email', type='text', placeholder= 'Email Address')
+      .form-group
+        //- label Password:
+        input.form-control(name='password', type='password', placeholder= 'Password')
+      .form-group
+        //- label Confirm Password:
+        input.form-control(name='password2', type='password', placeholder= 'Confirm Password')
+          
+      br
+      input.butn.butn-primary(type='submit', value='Submit')
+      br
+      #sign-up-text-div
+        span#sign-up-text Already have an account? 
+        a#sign-up-link(href='/') Login here.

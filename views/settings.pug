@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  #register-box
+    h1 User Settings
+    
+    form(method='POST', enctype='multipart/form-data', action='/users/settings')
+      .form-group
+        p#chAva Change avatar
+        input(type='file' name='file')
+        br
+        span#sizeWarning Image should preferably be square otherwise it will get stretched.
+      br
+      input.butn.butn-primary#sttBtn(type='submit', value='Submit')

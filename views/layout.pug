@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title Chat Website
+    link(rel='stylesheet' href='/css/stylesheet.css')
+    
+    
+  body
+    #body-container
+        if user
+          nav
+            #nav-container
+              ul.navUl
+                li.navLi
+                  a(href='/') Home 
+                li.navLi
+                  a(href='/users/settings') Profile Settings
+                #right-nav
+                  if user
+                    li.navLi
+                      a(href='#') Hello, #{user.username} !
+                    li.navLi
+                      a(href='/users/logout' style='font-size:12px; text-decoration:underline; margin:auto 10px auto 10px;') Logout
+                                  
+        block content
+      
+    
+      
+      

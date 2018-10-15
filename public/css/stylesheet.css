@@ -1,0 +1,455 @@
+
+*{
+  --main-bg-colour: #F5F3EE;
+  --main-accent-colour: #7D1935;
+  --secondary-accent-colour: #4A96AD;
+  --dark-accent-colour: #A13A57;
+  --filler-colour: #FFFFFF;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+body{
+  background-color: var(--main-accent-colour);
+}
+
+#body-container{
+
+  width: 1366px
+  /* height: 768px; */
+    /* position: relative; */
+}
+
+ul{
+  list-style-type: none;
+}
+
+.navUl a:visited, .navUl a:link{
+  color: white;
+  text-decoration: none;
+}
+
+.navUl .navLi{
+  display: inline;
+  margin-left: 3px;
+}
+
+#nav-container{
+  border: 2px solid var(--main-accent-colour);
+  background-color: var(--main-accent-colour);
+  width: 99.75%;
+}
+
+#right-nav{
+  float:right;
+}
+
+#left-area, #text-input, #chat-window{
+  border: 2px solid var(--main-accent-colour);
+}
+
+#left-area{
+  width: 9.5%;
+  height:611px;
+  position:relative;
+  float: left;
+  background-color: var(--main-accent-colour);
+}
+
+#groupInfo{
+  width: 100%;
+  position: relative;
+  text-align: center;
+  border-bottom: 2px solid white;
+  font-weight: bolder;
+  color:white;
+  background: var(--main-accent-colour);
+}
+
+#groupAdminInfoName:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#right-area{
+  width: 89.9%;
+  height: 615px;
+  position: relative;
+  float: right;
+  right: 6px;
+}
+
+#text-input{
+  border-color: var(--main-accent-colour);
+  width: 100%;
+  height: 106px;
+  left: 2px;
+  position: relative;
+  top: 505px;
+
+}
+
+#chat-window{
+  background-color: var(--dark-accent-colour);
+  width: 100%;
+  height: 501px;
+  position: relative;
+  bottom: 110px;
+  left: 2px;
+  overflow-y: auto;
+
+  word-wrap:break-word;
+  word-break: break-all;
+  white-space: normal;
+}
+
+#login-container{
+  border: 3px outset;
+  border-color: var(--secondary-accent-colour);
+  background-color: var(--main-bg-colour);
+  width: 400px;
+  height: 300px;
+  position:relative;
+  margin :auto;
+  top: 175px;
+  color: var(--main-accent-colour);
+  text-align: center;
+}
+
+
+#login-container > h1{
+  font-family: Arial, Verdana;
+  font-weight: bolder;
+  font-size: 40px;
+  margin-bottom: 50px;
+}
+
+.form-control{
+  font-family: Verdana, Arial;
+  font-size: 20px;
+  color: var(--main-accent-colour);
+  background-color: var(--main-bg-colour);
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 2px;
+  border-style: solid;
+  border-color: var(--main-accent-colour);
+  text-align: left !important;
+}
+
+.butn-primary{
+  transition: background-color 1.0s;
+  transition: color 1.0s;
+  font-weight: bold;
+  font-family: Verdana, Arial;
+  border: 3px solid var(--main-accent-colour);
+  width: 80px;
+  height: 30px;
+  color: white;
+  background-color: var(--dark-accent-colour);
+}
+
+.butn-primary:hover{
+  background-color: var(--main-accent-colour);
+  color: white;
+}
+
+#sign-up-link:link, #sign-up-link:visited{
+  color: var(--main-accent-colour);
+  text-decoration: underline;
+  font-family: Verdana, Arial;
+  font-size: 10px;
+}
+
+#sign-up-text{
+  font-size: 10px;
+  font-family: Verdana, Arial;
+}
+
+#sign-up-text-div{
+  margin-top: 10px;
+}
+
+#register-box{
+  width: 400px;
+  height: 550px;
+  background-color: var(--main-bg-colour);
+  border: 2px outset var(--secondary-accent-colour);
+  margin : auto;
+  position: relative;
+  top: 45px;
+  color: var(--main-accent-colour);
+}
+
+#register-box > h1{
+  font-family: Arial, Verdana;
+  margin-top: 25px;
+  margin-bottom: 30px;
+  font-weight: bolder;
+  font-size: 40px;
+}
+
+#register-box *{
+  text-align: center;
+}
+
+#register-box input{
+  margin-top: 40px;
+}
+
+#text-input{
+  background-color: var(--main-accent-colour);
+}
+
+#messages li{
+  word-wrap: normal;
+}
+
+#m{
+  width: 50%;
+  height: 75px;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-left: 100px;
+  resize: none;
+}
+
+#sendButton{
+  height: 40px;
+  width: 75px;
+  border: 2px;
+  position: relative;
+  top: -27px;
+  border-style: solid;
+  border-color: white;
+  background-color: var(--dark-accent-colour);
+  font-weight: bolder;
+  color: white;
+}
+
+#sendButton:hover{
+  background-color: var(--primary-accent-colour);
+}
+
+#msgLi{
+  margin-top: 8px;
+  margin-left: 5px;
+}
+
+.msgUsr{
+  position: relative;
+  top: -28px;
+  color: white;
+  margin-left: 10px;
+  font-weight: bold;
+  cursor:pointer;
+}
+
+.msgUsr:hover{
+  text-decoration: underline;
+}
+
+/* .msgAva{
+  cursor: pointer;
+} */
+
+.msgBody{
+  color:white;
+  position: relative;
+  left: 50px;
+  top: -22px;
+}
+
+#groupCreateLink:link, #groupCreateLink:visited{
+  color: white;
+  text-decoration: none;
+}
+
+#groupCreateLink{
+  border: 2px;
+  border-style: solid;
+  border-color: white;
+  position: relative;
+  text-align: center;
+  margin-left: 15px;
+}
+
+.groupName{
+  font-size: 13px;
+}
+
+.groupName:visited, .groupName:link{
+  color: white;
+  text-decoration: none;
+  position: relative;
+  top: -13px;
+  left: 2px;
+  word-wrap:normal;
+  word-break:break-all;
+}
+
+.groupName:hover{
+  text-decoration:underline;
+}
+
+.groupDiv{
+  margin-top: 5px;
+}
+
+.groupPicture{
+  position: relative;
+  top: 3px;
+  margin-left: 2px;
+}
+
+.currGroupDiv{
+  margin-top: 5px;
+  background-color: var(--dark-accent-colour);
+  border: 1px solid white;
+}
+
+.hide{
+  display: none;
+}
+
+.show{
+  width: 150px;
+  text-align: center;
+  position: absolute;
+  z-index: 1000;
+  color: white;
+  background-color: var(--main-accent-colour);
+  border: 2px solid white;
+  border-radius: 2px;
+  padding: 3px;
+  display: block;
+  margin: 0;
+  list-style-type:none;
+  list-style: none;
+}
+
+.show a, .show a:link {
+  color: white;
+  text-decoration: none;
+}
+.show a:hover {
+  text-decoration: underline !important;
+}
+
+.msgLine{
+  width: 95%;
+  margin: 0 auto;
+  border-bottom: 1px white;
+  border-style:inset;
+}
+
+.time{
+  font-size: 13px;
+  color: white;
+  position: relative;
+  top: -29px;
+  left: 5px;
+  font-weight: bolder;
+}
+
+.inviteHide{
+  position:relative;
+  background-color: var(--dark-accent-colour);
+}
+
+#grpDiv{
+  height: 510px;
+  overflow-y: auto;
+}
+
+#grCreate{
+  height: 50px;
+}
+
+#grSelect{
+  width: 60%;
+  text-align: center;
+  border: 2px solid var(--main-accent-colour);
+  color: white;
+  background-color: var(--dark-accent-colour);
+}
+
+#usrSpan{
+  text-decoration: underline;
+}
+
+#inUse{
+  border: 2px;
+  border-style:inset;
+  border-color: var(--secondary-accent-colour);
+  margin: 0 auto;
+  width: 250px;
+  text-align: center;
+  background-color: var(--main-bg-colour);
+  margin-top: 5px;
+  position:relative;
+  top: 20px;
+}
+
+#useText{
+  color: var(--main-accent-colour);
+  font-weight: bolder;
+}
+
+#groupBig{
+  color:white;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 20px;
+  position: relative;
+  left: 25px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.friendDiv{
+  margin-top: 5px;
+}
+
+.friendName{
+  color:white;
+  font-size: 14px;
+  position: relative;
+  top: -15px;
+  left: 3px;
+}
+
+.friendName:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#chAva{
+  font-weight: bolder;
+  text-decoration: underline;
+  font-size: 20px;
+  margin-bottom: -20px;
+}
+
+#sttBtn{
+  position: relative;
+  top: 250px;
+}
+
+#sizeWarning{
+  font-size: 12px;
+  position: relative;
+  top: 20px;
+}
+
+#grNameInp{
+  position:relative;
+  top: 30px;
+  border-bottom: 2px solid var(--main-accent-colour);
+  background-color: var(--main-bg-colour);
+  color: var(--main-accent-colour);
+  font-weight: bold;
+}

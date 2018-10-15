@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  #register-box
+    h2(style='margin-bottom:20px; margin-top:5px;') Group Settings for #[span(style='text-decoration:underline;')= group.name]
+    
+    form(method='POST', enctype='multipart/form-data', action='/groups/settings/' + group._id)
+      .form-group
+        p#chAva Change Group Picture
+        input(type='file' name='file')
+        br
+        span#sizeWarning Image should preferably be square otherwise it will get stretched.
+      br
+      input.butn.butn-primary#sttBtn(type='submit', value='Change Picture' style='position: relative; top: 1px; width: 150px;')
+    
+    form(method='POST', action='/groups/settings/name/' + group._id)
+      .form-group
+        p(style='position:relative; top: 30px; margin-top: 40px;')#chAva Change Group Name
+        input#grNameInp(type='text', name='grname', value=group.name)
+        br
+        input.butn.butn-primary#sttBtn(type='submit', value='Change Name' style='position: relative; top: 60px; width: 150px;')
+        

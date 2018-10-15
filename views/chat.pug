@@ -1,0 +1,231 @@
+extends layout
+
+block content
+  
+  #main-body
+    #right-area
+      #text-input
+        form#chatMessageForm(action="")
+          textarea#m(cols = 34 rows = 10 autocomplete = "off")
+            
+          button#sendButton Send
+          
+      #chat-window
+        #groupInfo
+          for gr in groups
+            - if(gr._id.toString() == currGroup)
+              - if(gr.admin.toString() == user._id.toString())
+                span#groupAdminInfoName= gr.name
+              - if(gr.admin.toString() != user._id.toString())
+                span#groupInfoName= gr.name
+        ul#messages
+          each msg in messages
+            li#msgLi
+              each usr in users
+                - if(usr._id.toString() == msg.sender.toString())
+                  img(width=40 height=40 src=usr.avatar).msgAva
+                  span.msgUsr= usr.username
+              - var time = (new Date(msg.timestamp)).toLocaleTimeString().substring(0,5);
+              span.time= time
+              br 
+              span.msgBody= msg.body
+              hr.msgLine
+              
+            
+          
+    
+    #left-area
+      #grpDiv
+        span#groupBig Groups
+        ul#groups
+          each gr in groups
+            - var nm = gr.name;
+            - if(currGroup == gr._id.toString())
+              .currGroupDiv
+                li.groupLi 
+                  img.groupPicture(src=gr.picture height=40 width=40) 
+                  - var id = gr._id;
+                  - if(nm.length > 10) nm = nm.substring(0,10) + "...";
+                  a.groupName(href='/users/chat/' + id)= nm
+                  
+            - if(currGroup != gr._id.toString())
+              .groupDiv
+                li.groupLi 
+                  img.groupPicture(src=gr.picture height=40 width=40) 
+                  - var id = gr._id;
+                  - if(nm.length > 10) nm = nm.substring(0,10) + "...";
+                  a.groupName(href='/users/chat/' + id)= nm
+              
+        if friends
+          span#groupBig Friends
+          ul#friends
+            each fr in friends
+              each usr in users
+                -if(usr._id.toString() == fr.toString())
+                  .friendDiv
+                    li.friendLi
+                      img.friendsPicture(src=usr.avatar height=40 width=40)
+                      span.friendName= usr.username
+                  
+      #grCreate      
+      a#groupCreateLink(href='/groups/create') New Group
+        
+      include contextmenu.pug
+      
+    //- Socket.io scripts
+    
+    script(src='/socket.io/socket.io.js')
+    
+    script(src='https://code.jquery.com/jquery-1.11.1.js')
+    
+  
+    
+    script.
+      
+        userName = "#{user.username}";
+        avatar = "#{user.avatar}";
+        usrId = "#{user._id}";
+        var url = window.location.href;
+        var groupId = url.substring(url.lastIndexOf('/') + 1);
+        
+        if (document.addEventListener) {
+          groupAdmin = document.getElementById("groupAdminInfoName");
+          
+          if(groupAdmin){
+          groupAdmin.addEventListener('contextmenu', function(e){
+            var text = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            
+            document.getElementById("chGrText").href = "/groups/settings/" + text;
+            document.getElementById("gmenu").style.top = mouseY(e) + 'px';
+            document.getElementById("gmenu").style.left = mouseX(e) + 'px';
+            document.getElementById("gmenu").className = "show";
+            
+            e.preventDefault();
+            }, false);
+          }
+          
+          usernames = document.getElementsByClassName("msgUsr");
+          
+          for(i = 0; i < usernames.length; i++){
+            usernames[i].addEventListener('contextmenu', function(e) {
+                  e = e || window.event;
+                  var target = e.target || e.srcElement;
+                  var text = target.textContent || text.innerText;
+                  
+                  document.getElementById("invText").href = "/groups/invite/" + text;
+                  document.getElementById("frInvText").href = "/groups/addFriend/" + text;
+                  document.getElementById("rmenu").style.top = mouseY(e) + 'px';
+                  document.getElementById("rmenu").style.left = mouseX(e) + 'px';
+                  document.getElementById("rmenu").className = "show";
+                  
+                  e.preventDefault();
+                  }, false);
+          }
+          
+          friendnames = document.getElementsByClassName("friendName");
+          
+          for(i = 0; i < friendnames.length; i++){
+            friendnames[i].addEventListener('contextmenu', function(e) {
+                
+                e = e || window.event;
+                var target = e.target || e.srcElement;
+                var text = target.textContent || text.innerText;
+                
+                document.getElementById("invText").href = "/groups/invite/" + text;
+                document.getElementById("frRemText").href = "/groups/removeFriend/" + text;
+                document.getElementById("lmenu").style.top = mouseY(e) + 'px';
+                document.getElementById("lmenu").style.left = mouseX(e) + 'px';
+                document.getElementById("lmenu").className = "show";
+                
+                e.preventDefault();
+                }, false);
+          }
+        }
+        
+        $(document).bind("click", function(event) {
+          document.getElementById("rmenu").className = "hide";
+          document.getElementById("lmenu").className = "hide";
+          document.getElementById("gmenu").className = "hide";
+       });
+       
+       $(document).ready(function(){
+         $("#chat-window").scrollTop($("#chat-window")[0].scrollHeight);
+       });
+        
+        $(function(){
+          $('#chatMessageForm').keypress(function(e){
+            if(e.which == 13 && !e.shiftKey){
+              $(this).closest("form").submit();
+              e.preventDefault();
+              return false;
+            }
+          });
+        });
+      
+        $(function() {
+        var socket = io();
+        $('#chatMessageForm').submit(function(){
+          time = Date.now();
+          edited = false;
+          
+          socket.emit('chat message', $('#m').val(),  userName, usrId, time, edited, groupId, avatar);
+          $('#m').val('');
+          return false;  
+        });
+        
+        socket.on('chat message', function(msg, usr, userId, time, edited, grpId, av){
+            date = new Date(time);
+            t = date.toTimeString().substring(0,5);
+          
+            $('#messages').append("<li id='msgLi'><img width=40px height=40px src=" + av + " class='msgAva'/><span class='msgUsr'>" + 
+              usr +"</span>" + "<span class='time'>"+ t + "</span>" + "<br />" +  "<span class='msgBody'>" + msg + 
+              "</span></li><hr class='msgLine'>");
+              
+              $("#chat-window").scrollTop($("#chat-window")[0].scrollHeight);
+              
+              if (document.addEventListener) {
+                usernames = document.getElementsByClassName("msgUsr");
+                
+                for(i = 0; i < usernames.length; i++){
+                  usernames[i].addEventListener('contextmenu', function(e) {
+                        e = e || window.event;
+                        var target = e.target || e.srcElement;
+                        var text = target.textContent || text.innerText;
+                        
+                        document.getElementById("invText").href = "/groups/invite/" + text;
+                        document.getElementById("frInvText").href = "/groups/addFriend/" + text;
+                        document.getElementById("rmenu").style.top = mouseY(e) + 'px';
+                        document.getElementById("rmenu").style.left = mouseX(e) + 'px';
+                        document.getElementById("rmenu").className = "show";
+                        e.preventDefault();
+                        }, false);
+                }
+              }
+            });    
+      });
+      
+      
+      function mouseX(evt) {
+        if (evt.pageX) {
+            return evt.pageX;
+        } else if (evt.clientX) {
+           return evt.clientX + (document.documentElement.scrollLeft ?
+               document.documentElement.scrollLeft :
+               document.body.scrollLeft);
+        } else {
+            return null;
+        }
+      }
+
+      function mouseY(evt) {
+        if (evt.pageY) {
+            return evt.pageY;
+        } else if (evt.clientY) {
+           return evt.clientY + (document.documentElement.scrollTop ?
+           document.documentElement.scrollTop :
+           document.body.scrollTop);
+        } else {
+            return null;
+        }
+      }
+      

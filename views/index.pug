@@ -1,0 +1,23 @@
+extends layout
+
+block content
+
+  #body-container
+    #login-container
+      h1 Login
+      form(method = 'POST', action = '/users/login')
+        .form-group
+          //- label Username:
+          input.form-control(name='username', type='text', placeholder='Username')
+          
+        .form-group
+          //- label#password-label Password:
+          input.form-control(name='password', type='password', placeholder='Password')
+          
+        br
+        input.butn.butn-primary(type = 'submit', value = 'Submit')
+        
+        br
+        #sign-up-text-div
+          span#sign-up-text Don't have an account? 
+          a#sign-up-link(href='/users/register') Sign up here.
